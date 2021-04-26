@@ -1,10 +1,17 @@
 # Marketplace
 
 ```
+#TODO:
+# - approval (a shop can start operation after it has been approved)
+# - tier (a paying shop gets more features)
 entity Shop {
   id {
     prefix MSh
 
+    # ...
+  }
+  
+  creation {
     # ...
   }
 
