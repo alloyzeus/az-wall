@@ -21,7 +21,7 @@ entity Shop {
   # ...
 }
 
-# - A shop could have more than one managers but no more than three managers
+# - A shop could have more than one managers but no more than three managers (TODO)
 # - A user could manage more than one shops
 adjunct Manager {
   hosts {
