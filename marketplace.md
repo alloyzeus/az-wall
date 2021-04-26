@@ -7,7 +7,9 @@ entity Shop {
   }
   
   ownership {
-    owner_arity 1
+    transfer enabled
+
+    owner_arity 1-2
   }
   
   attributes {
