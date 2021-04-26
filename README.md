@@ -40,11 +40,12 @@ entity User {
             # An instance of User will be created
             # as the result of internal process.
         }
+
         deletion enabled {
 
             # A user must be able to delete themselves.
             # Options:
-            # - public: cross-process (intraprocess is implied). the generator might generate REST endpoint, gRPC call handler and/or others based on the configured protocols,
+            # - public: cross-process (intraprocess is implied). the generator might generate a REST endpoint, a gRPC call handler and/or others based on the configured protocols,
             # - intraprocess: cross-module (exported; intramodule is implied) within a process,
             # - intramodule (default): available within the same module (unexported)
             api public {
