@@ -41,6 +41,11 @@ entity User {
             # as the result of internal process.
         }
 
+        # The directives for the deletion of instances of the entity.
+        # Could an instance be deleted? Who can delete an instance? From where it can be deleted?
+        #
+        # By default, instances of an entity can not be deleted. We must explicitly declare that a type
+        # of entity is deletable.
         deletion enabled {
 
             # A user must be able to delete themselves.
@@ -62,6 +67,8 @@ entity User {
                 }
             }
 
+            # The directives for the events. Are events generated? Who can listen to the events?
+            #
             # Options:
             # - public: cross-process
             # - intraprocess: cross-module within a process
