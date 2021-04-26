@@ -54,7 +54,9 @@ entity User {
                         user allow
                         service disallow
                     }
+                    
                     check ($subject == $target)
+                    # As an alternative, declare in Polar of OSO https://docs.osohq.com/python/getting-started/policies.html
                     check language="polar" {
                         allow(callContext: CallContext, $method, target: User) if
                             callContext.Actor.User = target
