@@ -6,8 +6,8 @@ A wall (of ideas) for AZML
 AZML stands for AlloyZeus (that's a codename) Modelling Language.
 
 AZML is an attempt to build a modelling language and tool set (compiler and stuff) which allow
-software developers, especially software architects, to model the system, and then be able
-to generate the source code of that system, end-to-end.
+software developers, especially software architects, to model a service-oriented system, and
+then be able to generate the source code of that system, end-to-end.
 
 ```
 
@@ -16,7 +16,8 @@ entity User {
 
     id {
         prefix KUs0
-        id_num {
+
+        num {
             space 64
             identifier_space 48
             embedded_fields {
