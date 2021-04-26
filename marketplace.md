@@ -3,11 +3,15 @@
 ```
 entity Shop {
   id {
+    prefix MSh
+
     # ...
   }
   
   ownership {
-    transfer enabled
+    transfer enabled {
+      #TODO: rules. does it need verification?
+    }
 
     owner_arity 1..2
   }
@@ -40,11 +44,18 @@ adjunct entity Article {
   }
   
   id {
+    prefix MAr
+
     # ...
   }
   
   attributes {
     DisplayName: thing.Name
+    Images: set {
+        #TODO: constraints for the 'set', e.g., min max
+      } of media.Image {
+        #TODO: constraints for the 'media.Image', e.g., max size in bytes
+      }
     
     # ...
   }
