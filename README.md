@@ -80,3 +80,9 @@ entity User {
 }
 
 ```
+
+## Related works, concepts and references
+
+- UML
+- Domain-driven design
+- ThingML
