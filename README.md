@@ -50,16 +50,14 @@ entity User {
             # - intramodule (default): available within the same module (unexported)
             api public {
                 access {
-                    token Bearer {
-                        user allow
-                        service disallow
-                    }
+                    token Bearer
                     
-                    check ($subject == $target)
-                    # As an alternative, declare in Polar of OSO https://docs.osohq.com/python/getting-started/policies.html
+                    # Here we define the authorization as a Polar policy https://docs.osohq.com/python/getting-started/policies.html
                     check language="polar" {
-                        allow(callContext: CallContext, _method, target: User) if
-                            callContext.Actor.User = target
+                        allow(context: CallContext, _method, target: User) if
+                            context.Application.IsFirstParty = true and
+                            context.Application.IsUserAgentAuthorizationPublic = true and
+                            context.User = target;
                     }
                 }
             }
