@@ -7,7 +7,9 @@ entity Shop {
 
     # ...
   }
-  
+
+  # - A shop ownership could be transferred
+  # - A shop has at least one owner but no more than two owners
   ownership {
     transfer enabled {
       #TODO: rules. does it need verification?
@@ -27,12 +29,14 @@ entity Shop {
   # ...
 }
 
-# - A shop could have more than one managers but no more than three managers (TODO)
+# - A shop could have more than one managers but no more than three managers
 # - A user could manage more than one shops
 adjunct Manager {
   hosts {
     Shop
-    iam.User
+    iam.User {
+      arity 1..3
+    }
   }
   
   # ...
