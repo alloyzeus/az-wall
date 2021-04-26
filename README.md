@@ -47,13 +47,15 @@ entity User {
         # By default, instances of an entity can not be deleted. We must explicitly declare that a type
         # of entity is deletable.
         deletion enabled {
+        
+            notes enabled optional
 
             # A user must be able to delete themselves.
             # Options:
             # - public: cross-process (intraprocess is implied). the generator might generate a REST endpoint, a gRPC call handler and/or others based on the configured protocols,
             # - intraprocess: cross-module (exported; intramodule is implied) within a process,
             # - intramodule (default): available within the same module (unexported)
-            api public {
+            operation public {
                 access {
                     token Bearer
                     
@@ -67,7 +69,8 @@ entity User {
                 }
             }
 
-            # The directives for the events. Are events generated? Who can listen to the events?
+            # The directives for the events.
+            # Are events generated? Who can listen to the events? Which event dispatch strategy to use?
             #
             # Options:
             # - public: cross-process
