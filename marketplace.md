@@ -42,6 +42,8 @@ adjunct Manager {
   hosts {
     Shop
     iam.User {
+      #TODO: find a clearer way to express the rule.
+      # this is potentially confusing on where the arity constraint is in relation to, to the adjunct or to the other hosts.
       arity 1..3
     }
   }
@@ -91,7 +93,9 @@ adjunct entity Showcase {
 
 adjunct Cart {
   hosts {
-    iam.User
+    iam.User {
+      arity 1
+    }
   }
   
   #TODO: items
