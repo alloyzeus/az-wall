@@ -9,7 +9,7 @@ entity Shop {
   ownership {
     transfer enabled
 
-    owner_arity 1-2
+    owner_arity 1..2
   }
   
   attributes {
