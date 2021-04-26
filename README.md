@@ -6,8 +6,8 @@ A wall (of ideas) for AZML
 AZML stands for AlloyZeus (that's a codename) Modelling Language.
 
 AZML is an attempt to build a modelling language and tool set (compiler and stuff) which allow
-software developers, especially software architects, to model the system and then generate
-the source code of the modelled system.
+software developers, especially software architects, to model the system, and then be able
+to generate the source code of that system, end-to-end.
 
 ```
 
