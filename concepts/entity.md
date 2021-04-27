@@ -1,6 +1,6 @@
 # Entity
 
-The concept of entity in AZML is roughly similar to that of found in Domain-Driven
+The concept of entity in AlloyZeus is roughly similar to that of found in Domain-Driven
 Design methodology.
 
 ## Properties of entity
@@ -31,3 +31,7 @@ Once assigned, an identity is reserved to particular entity, even though the ent
 has been disposed of.
 
 ### Entity may have attributes
+
+## Discussions
+
+### Explain the relationship of identity and ID
