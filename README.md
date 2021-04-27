@@ -1,13 +1,19 @@
-# azml-wall
-A wall (of ideas) for AZML
+# AlloyZeus Wall
+A wall (of ideas) for AlloyZeus
 
-## What is AZML?
+## What is AlloyZeus?
 
-AZML stands for AlloyZeus (that's a codename) Modelling Language.
+**NOTE**: AlloyZeus is a codename. We might or might not retain it as the
+name of the product.
 
-AZML is an attempt to build a modelling language and tool set (compiler and stuff) which allow
-software developers, especially software architects, to model a service-oriented system, and
+AlloyZeus is an attempt to build a methodology, modelling language, and tool set
+(compiler and stuff) which allow software developers, especially software
+architects, to model a service-oriented system, and
 then be able to generate the source code of that system, end-to-end.
+
+## AZML - AlloyZeus Modelling Language
+
+Quick and dirty peek into the language:
 
 ```
 
