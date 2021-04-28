@@ -44,6 +44,17 @@ than one instance of contract.
 
 ### Concept-related discussions
 
+#### Optional hosts
+
+An adjunct must have at least one host, the first one, that is required, but it might
+allow the rest to be optional.
+
+There's a case in IAM. A Terminal is an adjunct entity formed between an Application
+and a User. The requirement of the User part depends on the the agency type of the
+Application. If the Application is a user-agent, User must be provided; if the
+Application has a type of service (non-user-representing application), User must
+not be provided.
+
 #### Ownership as a special adjunct
 
 ### Syntax-related discussions
@@ -54,3 +65,8 @@ This could work if the adjunct and its first host are in the same module.
 An adjunct of a host defined in another module is always non-inline;
 it's not possible as this will be a form of cyclic dependency, and we
 will never have any support for cyclic dependency in AZML.
+
+#### Describing arity (and exclusivity or uniqueness)
+
+Session is an adjunct entity of Terminal, but the number of Session at
+a given time is limited to at most one.
