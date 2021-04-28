@@ -53,10 +53,6 @@ entity Shop {
   }
 
   adjunct entity Article {
-    hosts {
-      Shop
-    }
-
     id {
       prefix MAr
 
