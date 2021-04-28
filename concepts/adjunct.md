@@ -72,6 +72,12 @@ will never have any support for circular dependency in AZML.
 Session is an adjunct entity of Terminal, but the number of Session at
 a given time is limited to at most one.
 
-What we want is a syntax to express the following: "the cardinality
-of Manager to Shop is 1..3" (one Shop may have one to three Managers),
-"the cardinality of Session to Terminal is 1" (one-to-one), etc.
+What we want is a syntax to express the following examples:
+
+- "the cardinality of Manager to Shop is 1..3" -- one Shop may have one
+  to three Managers.
+- "the cardinality of Session to Terminal is 0..1" -- one Terminal may
+  have one Session at most.
+
+A more complex case (fictious): one Shop may have one to three Managers,
+and one User can be a Manager of two Shops at most.
