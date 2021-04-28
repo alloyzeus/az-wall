@@ -1,19 +1,15 @@
 # Marketplace
 
 ```
-#TODO:
-# - approval (a shop can start operation after it has been approved)
-# - tier (a paying shop gets more features)
+domain marketplace
+
 entity Shop {
   id {
     prefix MSh
-
-    # ...
   }
   
   lifecycle {
     creation {
-      # ...
     }
   }
 
@@ -21,17 +17,13 @@ entity Shop {
   # - A shop has at least one owner but no more than two owners
   ownership {
     transfer enabled {
-      #TODO: rules. does it need verification?
     }
 
     owner_cardinality 1..2
   }
   
   attributes {
-    DisplayName: thing.Name {
-      #TODO: rules like how frequent the name can be changed,
-      # the length constraints, who can change the name, etc.
-    }
+    DisplayName: thing.Name
     
     # ...
   }
@@ -41,11 +33,7 @@ entity Shop {
   adjunct Manager {
     hosts {
       iam.User {
-        #TODO: find a clearer way to express the rule.
-        # this is potentially confusing on which the cardinality constraint is
-        # in relation to, e.g., the number of users who can be managers,
-        # the number of users in relation to the other hosts (Shop in this case).
-        cardinality 1..3
+        cardinality to Shop 1..3
       }
     }
 
@@ -55,16 +43,13 @@ entity Shop {
   adjunct entity Article {
     id {
       prefix MSA
-
-      # ...
     }
 
     attributes {
       DisplayName: thing.Name
       Images: ordered set {
-          #TODO: constraints for the 'set', e.g., min max
+          cardinality 1..16
         } of media.Image {
-          #TODO: constraints for the 'media.Image', e.g., max size in bytes
         }
 
       # ...
@@ -79,12 +64,7 @@ entity Shop {
   # - Showcase or section?
   adjunct entity Showcase {
     id {
-      # ...
     }
-
-    #TODO: articles
-
-    # ...
   }
   
   # ...
@@ -97,12 +77,7 @@ with iam.User {
   # A cart has one-to-one relationship with a user, and
   # it does not need to be referenceable.
   adjunct Cart {
-    #TODO: articles
-
-    # ...
   }
-
-  # ...
 
 }
 
@@ -110,3 +85,21 @@ with iam.User {
 
 ```
 
+TODO:
+
+- [ ] Shop approval
+- [ ] Shop tier (paying shops get more features)
+- [ ] Shop id
+- [ ] Shop lifecycle
+- [ ] Shop ownership (transfer, transfer rules etc.)
+- [ ] Shop name constraints (length, how can it be changed)
+- [ ] Shop icon and banner
+- [ ] Article images constraints
+- [ ] Article id
+- [ ] Cart articles
+- [ ] Showcase articles
+- [ ] Showcase id
+- [ ] Order
+- [ ] Receipt
+- [ ] Review
+- [ ] Payment
