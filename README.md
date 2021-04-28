@@ -12,6 +12,12 @@ set of tools, a standard library (stdlib) for AZML, and support libraries
 especially software architects, to model a service-oriented system, and then
 be able to generate the source code of that system, end-to-end.
 
+## What problem it attempts to solve?
+
+Bridging the gap between system modelling and working systems.
+
+TODO: elaborate
+
 ## AZML - AlloyZeus Modelling Language
 
 A quick and dirty peek into the language:
