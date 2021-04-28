@@ -11,8 +11,10 @@ entity Shop {
     # ...
   }
   
-  creation {
-    # ...
+  lifecycle {
+    creation {
+      # ...
+    }
   }
 
   # - A shop ownership could be transferred
@@ -22,7 +24,7 @@ entity Shop {
       #TODO: rules. does it need verification?
     }
 
-    owner_arity 1..2
+    owner_cardinality 1..2
   }
   
   attributes {
@@ -43,8 +45,8 @@ adjunct Manager {
     Shop
     iam.User {
       #TODO: find a clearer way to express the rule.
-      # this is potentially confusing on where the arity constraint is in relation to, to the adjunct or to the other hosts.
-      arity 1..3
+      # this is potentially confusing on where the cardinality constraint is in relation to, to the adjunct or to the other hosts.
+      cardinality 1..3
     }
   }
   
@@ -76,6 +78,9 @@ adjunct entity Article {
   # ...
 }
 
+# A shop could have zero to unlimited (?) number of showcases.
+# Showcases are referenceable, e.g., it can be represented by an URL
+#
 # - Showcase or section?
 adjunct entity Showcase {
   hosts {
@@ -91,14 +96,14 @@ adjunct entity Showcase {
   # ...
 }
 
+# A cart has one-to-one relationship with a user, and
+# it does not need to be referenceable.
 adjunct Cart {
   hosts {
-    iam.User {
-      arity 1
-    }
+    iam.User
   }
   
-  #TODO: items
+  #TODO: articles
   
   # ...
 }
