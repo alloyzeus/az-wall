@@ -67,7 +67,7 @@ An adjunct of a host defined in another module is always non-inline;
 it's not possible as this will be a form of cyclic dependency, and we
 will never have any support for cyclic dependency in AZML.
 
-#### Describing arity (and exclusivity or uniqueness)
+#### Describing cardinality (and exclusivity or uniqueness)
 
 Session is an adjunct entity of Terminal, but the number of Session at
 a given time is limited to at most one.
