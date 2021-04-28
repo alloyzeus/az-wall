@@ -6,15 +6,15 @@ A wall (of ideas) for AlloyZeus
 **NOTE**: AlloyZeus is a codename. We might or might not retain it as the
 name of the product.
 
-AlloyZeus is an attempt to build a methodology, modelling language, tool set
-(compiler and stuff), standard value-object library, and standard libraries
-for supported target languages which allow software developers, especially
-software architects, to model a service-oriented system, and then be able to
-generate the source code of that system, end-to-end.
+AlloyZeus is an attempt to build a methodology, modelling language (AZML), a
+set of tools, a standard library (stdlib) for AZML, and support libraries
+(packages) for supported target languages which allow software developers,
+especially software architects, to model a service-oriented system, and then
+be able to generate the source code of that system, end-to-end.
 
 ## AZML - AlloyZeus Modelling Language
 
-Quick and dirty peek into the language:
+A quick and dirty peek into the language:
 
 ```
 
