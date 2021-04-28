@@ -34,4 +34,4 @@ has been disposed of.
 
 ## Discussions
 
-### Explain the relationship of identity and ID
+### Explain the relationship between identity and ID
