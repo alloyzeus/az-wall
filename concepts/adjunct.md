@@ -2,24 +2,29 @@
 
 Adjunct is a concept that is not found in DDD methodology.
 
-An adjunct is an object, which existence is bound to its host(s).
-
-In many cases, adjuncts are used to describe relationships between two or more
-entities. A membership is an adjunct which was formed between an organization
-an a person. A marriage is an adjunct formed between two persons.
-
-Adjuncts contribute attributes to their hosts. A job contract (see details in other
-part of this document) adds 'working at company A' attribute to the person it
-belongs to.
-
 ## Properties of adjunct
 
-- two types of adjunct: entity and value object
-- an adjunct with a type of value object is always have one-to-one to all of its hosts
-- an adjunct with a type of entity could be made to have any kind of cardinality to its host(s).
-  The constraints must be defined as AZML.
+* An adjunct is an object, which existence is bound to its host entity(s).
+* Adjunct host must be object with the type of entity.
+* An adjunct can have one or more hosts.
+* Two types of adjunct: entity and value object:
+  - an adjunct with a type of value object is always have one-to-one to all of its hosts
+  - an adjunct with a type of entity could be made to have any kind of cardinality to its host(s).
+    The constraints must be defined as AZML.
+  
+## Types of usage
 
-## Examples
+### Describing a relationship between objects
+
+A membership is an adjunct which was formed between an organization
+an a person. A marriage is an adjunct formed between two persons.
+
+### Attaching attributes to an entity
+
+A job contract adds "a worker" and "company A employee" attributes to
+the person it belongs to.
+
+## More examples
 
 A cart in an online store is an adjunct with type of value-object of a user. A cart's
 existence is exclusively bound to its user, and one user has only one cart. A cart
