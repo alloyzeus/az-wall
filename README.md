@@ -99,9 +99,9 @@ entity User {
                     # policy https://docs.osohq.com/python/getting-started/policies.html
                     check language="polar" {
                         allow(context: CallContext, _method, target: User) if
-                            context.Application.IsFirstParty = true and
-                            context.Application.IsUserAgentAuthorizationPublic = true and
-                            context.User = target;
+                            context.application.is_first_party = true and
+                            context.application.is_user_agent_authorization_confidential = true and
+                            context.user = target;
                     }
                 }
             }
