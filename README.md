@@ -23,19 +23,33 @@ TODO: elaborate
 A quick and dirty peek into the language:
 
 ```
+domain iam
 
 entity User {
     implements system.User
 
+    # Entity primary identifier definition.
     id {
+        # The prefix of the textual representation of the IDs.
         prefix KUs0
 
+        # The definition of the numeric representation of the ID.
         num {
+            # Here we define that the ID will use 64bit integer
             space 64
-            identifier_space 48
-            embedded_fields {
+            
+            # We reserve 48bit for the instance identifiers.
+            identifier 48
+            
+            # We embed some fields, which are part of the idenity of the
+            # entity. These fields will occupy the remaining bits.
+            fields {
+                # Fields start at index 1 as index 0 is reserved for
+                # the carry bit and for consistency between signed and
+                # unsigned integer representations.
                 field 1 1 {
-                    # Bot account is ....
+                    # A User with the type of Bot was designed to perform
+                    # tasks automatically based on triggers.
 
                     identifier Bot
                 }
@@ -64,13 +78,14 @@ entity User {
             notes enabled optional
 
             # A user must be able to delete themselves.
-            # Options:
+            #
+            # Visibility options:
             # - public: cross-process (intraprocess is implied). the
             #   generator might generate a REST endpoint, a gRPC call
             #   handler and/or others based on the configured protocols,
             # - intraprocess: cross-module (exported; intramodule
             #   is implied) within a process,
-            # - intramodule (default): available within the same
+            # - private (default): available within the same
             #   module (unexported)
             operation public {
                 access {
@@ -91,10 +106,11 @@ entity User {
             # Are events generated? Who can listen to the events?
             # Which event dispatch strategy to use?
             #
-            # Options:
+            # Visibility options:
             # - public: cross-process
             # - intraprocess: cross-module within a process
-            # - none (default): not generating events
+            # - private (default): events are not observable
+            #   outside the module
             event public {
                 access {}
             }
