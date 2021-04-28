@@ -68,6 +68,16 @@ entity User {
             # cross-process API (cross-process API is disabled by default).
             # An instance of User will be created as the result of
             # an internal process.
+            #
+            # Operation API visibility options:
+            # - public: cross-process (intraprocess is implied). the
+            #   generator might generate a REST endpoint, a gRPC call
+            #   handler and/or others based on the configured protocols,
+            # - intraprocess: cross-module (exported; intramodule
+            #   is implied) within a process,
+            # - private (default): available within the same
+            #   module (unexported).
+            operation private
         }
 
         # The directives for the deletion of instances of the entity.
@@ -81,15 +91,6 @@ entity User {
             notes enabled optional
 
             # A user must be able to delete themselves.
-            #
-            # Visibility options:
-            # - public: cross-process (intraprocess is implied). the
-            #   generator might generate a REST endpoint, a gRPC call
-            #   handler and/or others based on the configured protocols,
-            # - intraprocess: cross-module (exported; intramodule
-            #   is implied) within a process,
-            # - private (default): available within the same
-            #   module (unexported)
             operation public {
                 access {
                     token Bearer
@@ -109,11 +110,11 @@ entity User {
             # Are events generated? Who can listen to the events?
             # Which event dispatch strategy to use?
             #
-            # Visibility options:
+            # Event API visibility options:
             # - public: cross-process
             # - intraprocess: cross-module within a process
             # - private (default): events are not observable
-            #   outside the module
+            #   from the outside of the module
             event public {
                 access {}
             }
