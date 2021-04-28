@@ -29,7 +29,8 @@ entity Shop {
   
   attributes {
     DisplayName: thing.Name {
-      #TODO: rules like how frequent the name can be changed, the length constraints, who can change the name, etc.
+      #TODO: rules like how frequent the name can be changed,
+      # the length constraints, who can change the name, etc.
     }
     
     # ...
@@ -45,7 +46,9 @@ adjunct Manager {
     Shop
     iam.User {
       #TODO: find a clearer way to express the rule.
-      # this is potentially confusing on where the cardinality constraint is in relation to, to the adjunct or to the other hosts.
+      # this is potentially confusing on which the cardinality constraint is
+      # in relation to, e.g., the number of users who can be managers,
+      # the number of users in relation to the other hosts (Shop in this case).
       cardinality 1..3
     }
   }
