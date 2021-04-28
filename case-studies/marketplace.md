@@ -54,7 +54,7 @@ entity Shop {
 
   adjunct entity Article {
     id {
-      prefix MAr
+      prefix MSA
 
       # ...
     }
