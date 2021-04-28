@@ -95,8 +95,8 @@ entity User {
                 access {
                     token Bearer
                     
-                    # Here we define the authorization as a Polar
-                    # policy https://docs.osohq.com/python/getting-started/policies.html
+                    # Here we define the authorization as a Polar policy
+                    # https://docs.osohq.com/python/getting-started/policies.html
                     check language="polar" {
                         allow(context: CallContext, _method, target: User) if
                             context.application.is_first_party = true and
@@ -132,4 +132,5 @@ entity User {
 
 - UML
 - Domain-driven design
+- [Modelica](https://modelica.org/documents/MLS.pdf)
 - ThingML
