@@ -30,7 +30,7 @@ entity User {
 
     # Entity primary identifier definition.
     id {
-        # The prefix of the textual representation of the IDs.
+        # The prefix of the textual representation of the ID.
         prefix KUs0
 
         # The definition of the numeric representation of the ID.
@@ -41,7 +41,7 @@ entity User {
             # We reserve 48bit for the instance identifiers.
             identifier 48
             
-            # We embed some fields, which are part of the idenity of the
+            # We embed some fields, which are part of the identity of the
             # entity. These fields will occupy the remaining bits.
             fields {
                 # Fields start at index 1 as index 0 is reserved for
@@ -55,6 +55,9 @@ entity User {
                 }
             }
 
+            # The id-num generator. Root entities (entities which are
+            # not adjunct of others) are required to use random number
+            # generator.
             generator LocalRandom
         }
     }
