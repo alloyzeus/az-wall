@@ -69,7 +69,7 @@ adjunct entity Article {
   
   attributes {
     DisplayName: thing.Name
-    Images: set {
+    Images: ordered set {
         #TODO: constraints for the 'set', e.g., min max
       } of media.Image {
         #TODO: constraints for the 'media.Image', e.g., max size in bytes
