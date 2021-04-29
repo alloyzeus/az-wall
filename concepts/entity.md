@@ -32,6 +32,16 @@ has been disposed of.
 
 ### Entity may have attributes
 
+## Two forms of entity
+
+There are two forms of entity based on whether it's standing on its own which we use the term root entity, or as adjunct.
+
+## Entity persistency
+
+## Service
+
+Each entity has its own service. Every service is built around entity(s).
+
 ## Discussions
 
 ### Explain the relationship between identity and ID
