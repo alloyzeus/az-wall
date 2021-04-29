@@ -69,7 +69,7 @@ entity User {
             # An instance of User will be created as the result of
             # an internal process.
             #
-            # Operation API visibility options:
+            # Procedure API visibility options:
             # - public: cross-process (intraprocess is implied). the
             #   generator might generate a REST endpoint, a gRPC call
             #   handler and/or others based on the configured protocols,
@@ -77,7 +77,7 @@ entity User {
             #   is implied) within a process,
             # - private (default): available within the same
             #   module (unexported).
-            operation private
+            procedure private
         }
 
         # The directives for the deletion of instances of the entity.
@@ -91,7 +91,7 @@ entity User {
             notes enabled optional
 
             # A user must be able to delete themselves.
-            operation public {
+            procedure public {
                 access {
                     token Bearer
                     
