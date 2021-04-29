@@ -25,16 +25,17 @@ decided to change their name, their identifier changes but their identity does n
 
 ### Identity of an entity is non-reassignable, non-replaceable, non-nullable
 
-### Identities are forever
+### Identities are non-recycleable
 
-Once assigned, an identity is reserved to particular entity, even though the entity
-has been disposed of.
+An identity is not reassignable even though the entity it was assigned to has been
+disposed of.
 
 ### Entity may have attributes
 
 ## Two forms of entity
 
-There are two forms of entity based on whether it's standing on its own which we use the term root entity, or as adjunct.
+There are two forms of entity based on whether it's standing on its own
+which we use the term root entity, or as adjunct.
 
 ## Entity persistency
 
@@ -53,5 +54,6 @@ used vertically or horizontally.
 
 APIs which were designed to be used horizontally, they will be accessed
 by the same service in different instances. This is for horizontal
-scaling purposes, for example a concensus system and determining that
-another user is online by checking if they are connected to any node.
+scaling purposes. An example of horizontal API is an interface to determine
+whether another user is online by checking if that user is connected to any
+node.
