@@ -45,3 +45,13 @@ Each entity has its own service. Every service is built around entity(s).
 ## Discussions
 
 ### Explain the relationship between identity and ID
+
+### Service API visibility, access control
+
+For an interface in API, it should be determined whether it will be
+used vertically or horizontally.
+
+APIs which were designed to be used horizontally, they will be accessed
+by the same service in different instances. This is for horizontal
+scaling purposes, for example a concensus system and determining that
+another user is online by checking if they are connected to any node.
