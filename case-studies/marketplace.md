@@ -96,6 +96,7 @@ TODO:
 - [ ] Shop icon and banner
 - [ ] Article images constraints
 - [ ] Article id
+- [ ] Article variations: sizes, colors, bundles, optional parts. Also the related images for each variation.
 - [ ] Cart articles
 - [ ] Showcase articles
 - [ ] Showcase id
