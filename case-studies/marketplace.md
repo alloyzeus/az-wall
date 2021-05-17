@@ -95,8 +95,9 @@ TODO:
 - [ ] Shop name constraints (length, how can it be changed)
 - [ ] Shop icon and banner
 - [ ] Article images constraints
-- [ ] Article id
-- [ ] Article variations: sizes, colors, bundles, optional parts. Also the related images for each variation.
+- [ ] Article id (not SKU; SKU is an adjunct)
+- [ ] Article variations: sizes, colors, optional parts. Also the related images for each variation.
+- [ ] Article bundles (an article comprised of other items, e.g., a bike and its wheels)
 - [ ] Cart articles
 - [ ] Showcase articles
 - [ ] Showcase id
