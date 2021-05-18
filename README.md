@@ -18,6 +18,10 @@ Bridging the gap between system modelling and actual working systems.
 
 TODO: elaborate
 
+## The Methodology
+
+Mind map: https://mm.tt/1898713101?t=OCLQ1a6WpM
+
 ## AZML - AlloyZeus Modelling Language
 
 A quick and dirty peek into the language:
