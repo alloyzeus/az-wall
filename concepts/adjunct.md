@@ -11,6 +11,9 @@ Adjunct is a concept that is not found in DDD methodology.
 * The type of object that could become host of adjuncts are entity.
 * An adjunct can have one or more hosts.
 * The type(s) and the the number of the host(s) are static.
+* By default, the identifier of an adjunct instance is constructed from
+  its hosts' identifiers, e.g., a message 12345 in chat 42 might have
+  an identifier of `chat:42/message:12345`.
 * Adjunction is not bound to domains. An adjunct could be created from
   entities from various domains as long as there is no circular dependencies.
 * Two types of adjunct: _entity_ and _value object_:
@@ -26,14 +29,15 @@ Adjunct is a concept that is not found in DDD methodology.
 A membership is an adjunct that describes a relationship between an
 organization an a person.
 
-A more obvious example, a marriage is an adjunct formed between two persons.
+A more obvious example, a marriage is an adjunct formed between two
+persons.
 
 ### Attaching attributes or objects to an entity
 
 ![simple dot](https://user-images.githubusercontent.com/77626/118584955-2ce9f280-b7c2-11eb-8aff-0ee6f14089e5.png)
 
-A job contract adds "a worker" and "company A employee" attributes to
-the person it belongs to.
+A saving account of a person in a bank is an adjunct, that is provided
+by the bank for the person.
 
 ## More examples
 
