@@ -56,6 +56,16 @@ Application. If the Application is a user-agent, User must be provided; if the
 Application has a type of service (non-user-representing application), User must
 not be provided.
 
+#### Two hosts of the same kind
+
+A user-to-user chat is an adjunct of two instances of User. Identifier for this
+chat must be consistent. As the identifier is constructed from each user's
+identifier, the ordering must be determined.
+
+We must should also provide a way to prevent an adjunct which hosts are the
+same instance. By default we'll allow any adjunct to have hosts that are the
+same instance (in messenger example, this is a self-chat).
+
 #### Ownership as a special adjunct
 
 ### Syntax-related discussions
