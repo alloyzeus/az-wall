@@ -4,8 +4,8 @@ Adjunct is a concept that is not found in DDD methodology.
 
 ## Properties of adjunct
 
-* An adjunct is an object that its existence is only supporting its host
-  entity(s).
+* An adjunct is an object that its only purpose of existence to support
+  its host entity(s).
 * The lifecycle of an adjunct is bound to its host entity(s).
   Adjuncts cannot outlive their respective hosts.
 * The type of object that could become host of adjuncts are entity.
