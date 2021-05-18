@@ -4,9 +4,11 @@ Adjunct is a concept that is not found in DDD methodology.
 
 ## Properties of adjunct
 
-* An adjunct is an object, which existence is bound to its host entity(s).
+* An adjunct is an object that its existence is only supporting its host
+  entity(s).
+* The lifecycle of an adjunct is bound to its host entity(s).
   Adjuncts cannot outlive their respective hosts.
-* Adjunct host must be object with the type of entity.
+* The type of object that could become host of adjuncts are entity.
 * An adjunct can have one or more hosts.
 * The type(s) and the the number of the host(s) are static.
 * Adjunction is not bound to domains. An adjunct could be created from
@@ -21,7 +23,7 @@ Adjunct is a concept that is not found in DDD methodology.
 
 ### Describing a relationship between objects
 
-A membership is an adjunct which describes a relationship between an
+A membership is an adjunct that describes a relationship between an
 organization an a person.
 
 A more obvious example, a marriage is an adjunct formed between two persons.
@@ -41,7 +43,7 @@ does not to be referenceable so it does not need to be an entity.
 
 ![two-entities dot](https://user-images.githubusercontent.com/77626/118584866-01ff9e80-b7c2-11eb-9d5e-1e11e6beb5df.png)
 
-A job contract is an adjunct, with type of entity, which hosts are a company and a person.
+A job contract is an adjunct, with type of entity, and hosts are a company and a person.
 A job contract needs to be referenceable and between the same hosts, there might be more
 than one instance of contract.
 
@@ -66,7 +68,7 @@ A user-to-user chat is an adjunct of two instances of User. Identifier for this
 chat must be consistent. As the identifier is constructed from each user's
 identifier, the ordering must be determined.
 
-We must should also provide a way to prevent an adjunct which hosts are the
+We must should also provide a way to prevent an adjunct that hosts are the
 same instance. By default we'll allow any adjunct to have hosts that are the
 same instance (in messenger example, this is a self-chat).
 
