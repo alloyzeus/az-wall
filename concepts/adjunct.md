@@ -17,7 +17,7 @@ Adjunct is a concept that is not found in DDD methodology.
   - An adjunct with a type of entity could be made to have any kind of
     cardinality to its host(s). The constraints must be defined as AZML.
   
-## Types of usage
+## Usages
 
 ### Describing a relationship between objects
 
@@ -26,7 +26,9 @@ organization an a person.
 
 A more obvious example, a marriage is an adjunct formed between two persons.
 
-### Attaching attributes to an entity
+### Attaching attributes or objects to an entity
+
+![simple dot](https://user-images.githubusercontent.com/77626/118584955-2ce9f280-b7c2-11eb-8aff-0ee6f14089e5.png)
 
 A job contract adds "a worker" and "company A employee" attributes to
 the person it belongs to.
@@ -36,6 +38,8 @@ the person it belongs to.
 A cart in an online store is an adjunct with type of value-object of a user. A cart's
 existence is exclusively bound to its user, and one user has only one cart. A cart
 does not to be referenceable so it does not need to be an entity.
+
+![two-entities dot](https://user-images.githubusercontent.com/77626/118584866-01ff9e80-b7c2-11eb-9d5e-1e11e6beb5df.png)
 
 A job contract is an adjunct, with type of entity, which hosts are a company and a person.
 A job contract needs to be referenceable and between the same hosts, there might be more
