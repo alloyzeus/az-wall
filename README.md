@@ -12,6 +12,8 @@ set of tools, a standard library (stdlib) for AZML, and foundation libraries
 especially software architects, to model a service-oriented system, and then
 be able to generate the source code of that system, reactive and end-to-end.
 
+Mind map: https://www.mindmeister.com/1593890042/alloyzeus-components
+
 ## What problem it attempts to solve?
 
 Bridging the gap between system modelling and actual working systems.
