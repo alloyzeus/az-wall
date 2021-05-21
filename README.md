@@ -22,7 +22,7 @@ TODO: elaborate
 
 ## The Methodology
 
-Mind map: https://mm.tt/1898713101?t=OCLQ1a6WpM
+Mind map: https://www.mindmeister.com/1898713101/alloyzeus-methodology
 
 ## AZML - AlloyZeus Modelling Language
 
