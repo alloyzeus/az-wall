@@ -26,7 +26,9 @@ Mind map: https://www.mindmeister.com/1898713101/alloyzeus-methodology
 
 ## AZML - AlloyZeus Modelling Language
 
-A quick and dirty peek into the language:
+A quick and dirty peek into the language (to give an idea of the parsed
+structure [iam.yaml](https://github.com/alloyzeus/az-wall/blob/master/case-studies/iam.yaml),
+and generated Go code [user__azgen.go](https://github.com/kadisoka/kadisoka-framework/blob/562fadec0bc1a7f694959fcfea82043427881796/iam/pkg/iam/user__azgen.go)) :
 
 ```
 domain iam
