@@ -1,0 +1,609 @@
+module: iam
+
+options:
+  - key: "go_package"
+    value: "github.com/kadisoka/kadisoka-framework/iam"
+
+server:
+  #TODO: directives for generating server packages and applications.
+
+symbols:
+
+  - identifier: User
+    # An entity is a root object in a whole realm.
+    kind: entity
+    parameters:
+      # This defines what this entity's role in the system. In a system, a role
+      # can have only one concrete. Not to be confused with 'role' in access
+      # control.
+      implements:
+        - kind: "_azsys.User"
+      id:
+        num:
+          # Only signed integer is supported for the highest compatibility with
+          # various languages and systems.
+          kind: integer
+          parameters:
+            # Only identifier_bits is required, but here, we also define the
+            # value of total_bits.
+            #
+            # This field is used to ensure that the IDs fit in the stated value;
+            # the compiler will return error if the IDs doesn't fit in
+            # total_bits.
+            #
+            # Valid value is any of 16 (analogous to int16_t in C/C++,
+            # smallint in SQL), 32 (analogous to int32_t in C/C++,
+            # int in SQL) and 64 (analogous to int64_t in C/C++, bigint in SQL).
+            #
+            # If not provided, total_bits will be determined by picking the
+            # option value a step larger than the value provided to
+            # identifier_bits.
+            total_bits: 64
+            # Max 63
+            identifier_bits: 48
+            bitfield:
+              sub_fields:
+                - size: 1
+                  identifier: Bot
+                  documentation: |
+                    Bot account is ....
+          generator:
+            # Other options: ShardedRandomIntegerGenerator
+            # The option for generator is defined by the registered generators
+            # to the compiler.
+            # Root entities can only use random generators.
+            name: LocalRandomIntegerIDGenerator
+            parameters:
+        ref_key:
+          azid_text:
+            prefix: "KUs0"
+      lifecycle:
+        # Declares the creation rules. This defines how and who can create
+        # an instance.
+        creation:
+          allow_cross_process_callers: false
+          allow_cross_process_event_observers: false
+        deletion:
+          enabled: true
+          notes:
+            enabled: true
+            required: false
+          event_emission:
+            enabled: true
+      service:
+        enabled: true
+        methods:
+        api:
+          protocols:
+            #?RFC: versioning?
+            rest:
+              enabled: true
+            grpc:
+              enabled: true
+
+  - identifier: KeyPhoneNumber
+    kind: adjunct
+    parameters:
+      kind: value
+      hosts:
+        - kind: User
+      parameters:
+        documentation: Nice
+        kind: telephony.PhoneNumber
+        unique: true
+
+  - identifier: Application
+    documentation: |
+      An Application is an ....
+    kind: entity
+    parameters:
+      # TODO: encode application type into the ID. we will then use
+      # the same method to encode the type into Terminal ID.
+      id:
+        num:
+          kind: integer
+          parameters:
+            total_bits: 32
+            #TODO: reserve range?
+            #
+            # How this will be laid out:
+            #
+            # 0b00000000000000000000000000000000
+            #   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            #   ||||||||||||||||||||||||||||||||
+            #   ||||||++++++++++++++++++++++++++- identifier (index 0-25)
+            #   ||||++- reserved 
+            #   |||+--- depends on index 29 (index 28)
+            #   ||+---- Service/UserAgent (index 29)
+            #   |+----- IsFirstParty (index 30)
+            #   +------ reserved for 32bit integer
+            identifier_bits: 26
+            # Bitfield is used to embed limited information to the IDs. This
+            # information will be part of the identity of an instance;
+            # information can not be changed without changing the identity of
+            # the instance.
+            #
+            # NOTE: changing the schema of bitfields is naturally more
+            # difficult than changing the value of entity attributes or adjuncts.
+            # Use bitfield only if the information is part of the identity of each
+            # instance and for optimization of a well-defined, stable
+            # practice.
+            #
+            # An example use case for bitfield is to allow resource servers to
+            # quickly determine if an access will be allowed or not based on the
+            # type of the application embedded into the ID of the application
+            # which made the request. By quickly here we mean that this check
+            # doesn't required to get this type information from the
+            # database. The limitation in this use case is that the type of the
+            # application can not be changed without changing the
+            # identity of the application.
+            #
+            # If we have 26bit identifier, and we want the whole ID num to fit
+            # in 32bit integers, first, we substract it by 1 (for ensuring it
+            # fits in 32bit signed integers), then substract it with the length
+            # of identifier bits, in this case 26. So it will be: 32 - 1 - 26 = 5.
+            # Five is the maximum size of the bitfield if we have 26bit
+            # identifier and we want it to fit in 32bit integers.
+            #
+            # For this particular case, we embed some information to the
+            # IDs to help services handle requests from the applications
+            # based on these information without requiring them to hit the
+            # database or contacting the service responsible for defining these
+            # information.
+            bitfield:
+              # The size of the bitfield, i.e., the number of bits we reserve for
+              # this bitfield. This field is optional as the compiler will
+              # infer this value by substracting total_bits with
+              # identifier_bits.
+              size: 5
+              sub_fields:
+                - size: 1
+                  identifier: FirstParty
+                  documentation: |
+                    FirstParty indicates that the application is a first-party
+                    application, i.e., the application was provided by the realm.
+
+                    First-party applications, in contrast to third party
+                    applications, are those of official applications, officially
+                    supported public applications, and internal-use only
+                    applications.
+
+                    First-party applications could be in various forms, e.g.,
+                    official mobile app, web app, or system dashboard.
+                - size: 1
+                  identifier: Agency
+                  documentation: |
+                    Application is divided into two types based on their agency:
+                    service and user agent.
+                  values:
+                    - identifier: Service
+                      documentation: |
+                        A service application is an application which does not
+                        represent user. Note that this is different from, e.g.,
+                        bot, where it's a specialization of User; a bot is a User.
+
+                        All service applications are confidential OAuth 2.0
+                        clients (RFC6749 section 2.1).
+                    - identifier: UserAgent
+                      documentation: |
+                        A user-agent application is an application which represents
+                        the user it got authorized by.
+
+                        There are two types of user agent based on the flow they use
+                        to obtain authorization: public and confidential.
+                        These types align with OAuth 2.0 client types (RFC6749
+                        section 2.1).
+                      sub_fields:
+                        - size: 1
+                          identifier: Authorization
+                          documentation: |
+                            User-agent applications is divided into two types
+                            based on how can they secure the credentials: public
+                            and confidential. This
+                            differentiation affects how strongly the system
+                            identifies the application.
+                          values:
+                            - identifier: AuthorizationPublic
+                              documentation: |
+                                A public-authorization user-agent application is an
+                                application which can be used by users to authenticate
+                                themselves to the system. The application will automatically
+                                receive authorization upon successful authentication of
+                                the user.
+                                
+                                A public-authorization user-agent credentials should
+                                never be assumed to be secure, i.e., it can not securely
+                                authenticate itself. An authorized application of this
+                                kind has no strong identity. Access control checks should
+                                be focused on testing the user's claims and less of the
+                                application's claims.
+                            - identifier: AuthorizationConfidential
+                              documentation: |
+                                A confidential-authorization user-agent application
+                                is a user-agent application which could receive authorization
+                                from a consenting user through 3-legged authorization flow.
+                                A confidential user-agent can not be used for directly
+                                performing user authentication.
+              #TODO: copied sub_fields
+        ref_key:
+          azid_text:
+            prefix: KAp0
+      lifecycle:
+        creation:
+          allow_cross_process_callers: true
+        deletion:
+          enabled: true
+      mixins:
+        - kind: Ownership
+          parameters:
+            owner_cardinality:
+              # overridable means that the configuration could be overriden
+              # through, e.g., environment variables or config server.
+              # RFC: should we, instead making these value here as value
+              # available in config server?
+              overridable: true
+              value:
+                min: 1
+                max: 4
+
+  - identifier: ApplicationAccessKey
+    kind: adjunct
+    parameters:
+      kind: entity
+      name_is_prepared: true
+      hosts:
+        - kind: Application
+      cardinality:
+        min: 0
+        max: 4
+      parameters:
+        id:
+          num:
+            kind: integer
+            parameters:
+              total_bits: 64
+              identifier_bits: 56
+              bitfield:
+                # An adjunct can inherit its hosts' bitfields.
+                # This is similar to entity ID, but instead of encode own
+                # attributes, we encode host's attributes.
+                #
+                # For this specific case, we want to able to quickly determine
+                # some of the Application's attributes based on information
+                # embedded in this access key ID without the need
+                # to fetch the complete data of the Application.
+                inherits:
+                  - host: 0
+                    # The size of the inherited bitfield from this host. This
+                    # value must be exactly same as host's. This is required
+                    # for ensuring consistency.
+                    size: 5
+
+          ref_key:
+            azid_text:
+              prefix: "KAK0"
+
+        attributes:
+          - name: Secret
+            kind: ApplicationAccessKeySecret
+            # TODO: describe: can it be changed? by who? other requirements?
+
+  - identifier: Terminal
+    documentation: |
+      A Terminal is an authorized instance of application. As long the the
+      authorization is still valid, a terminal could be used to access the
+      service within the limit of the granted authorization. An
+      authorization of a Terminal will become invalid when it is expired, or
+      revoked by the user, if the terminal is associated to a user, or those
+      who have the permission to revoke the authorization.
+
+      After a Terminal authorization is invalid, their user must re-authorize
+      their instance of Application if they wish to continue using their
+      instance of Application to access the service. Re-authorization of an
+      instance of an Application will generate a new Terminal. A
+      de-authorized Terminal is no longer usable.
+
+      A sucessful authorization will generate both a new Terminal and
+      an initial Session.
+    kind: adjunct
+    parameters:
+      kind: entity
+      name_is_prepared: true
+      # At least one
+      hosts:
+        - kind: Application
+        - kind: User
+          #TODO: express this: requirement is based on the application's agency type
+          required: false
+      # Options are 'id_num' and 'ref_key'. If it's set to 'id_num',
+      # an id_num could be used to uniquely identify an instance. If it's
+      # set to 'ref_key', which is the default, it requires hosts' ref-keys
+      # (composite) to uniquely identify an instance.
+      #
+      # Note that this does not affect how the ref-keys of the instances are
+      # constructed.
+      identity: id_num
+      parameters:
+        implements:
+          - kind: "_azsys.Terminal"
+        id:
+          #TODO: rules for ref-key validity.
+          # if the application has the type of user-agent, the user field
+          # must be valid. if the application has the type of service, the user
+          # field must be zero.
+          ref_key:
+            azid_text:
+              prefix: "KTx0"
+          num:
+            kind: integer
+            parameters:
+              total_bits: 64
+              identifier_bits: 56
+              bitfield:
+                inherits:
+                  - host: 0
+                    size: 5
+              generator:
+                name: RandomLocal
+        attributes:
+          # Here, we store data provided by context. These data become metadata.
+          - name: OriginEnvString
+            finality: on_creation
+            kind: '#infered'
+            value:
+              kind: ref
+              parameters:
+                source: $context.OriginEnvString
+        #   - name:
+        #     kind: copy
+        #     source: $context.OriginAddress
+        #   - name:
+        #     kind: copy
+        #     source: $context.AcceptLanguage
+        #   - name: RegistrationIdentifier
+        #     # TODO: union or interface
+        #     # we need to refer to TerminalRegistrationPhoneNumber and
+        #     # other methods of authentication.
+        #     kind: "@TerminalRegistrationIdentifierVerification"
+        #     final: true
+        #   - name: DisplayName
+        #     kind: string
+        #     final: true
+        #   - name: Secret
+        #     kind: string
+        #     finality: set-once
+        #     events:
+        #     final: true
+        #   - name: Verified
+        #     kind: bool with metadata
+        lifecycle:
+          creation:
+            allow_cross_process_callers: false
+            authorization:
+              - kind: intraprocess
+                allow: always
+          deletion:
+            enabled: true
+        service:
+          # TODO: this is runtime/deployment configs. there should be 
+          # various ways for defining configurations.
+          #
+          # Configs based on priority, from lowest to highest in priority:
+          # - hard-coded: this file (common or safe values)
+          # - hard-coded: override file (useful for site-specific defaults)
+          # - runtime: local files
+          # - runtime: environment variables
+          # - runtime: program arguments
+          # - runtime: config server (remote config)
+          configs:
+            - key: registration_verification_services
+              value:
+                - identifier: TerminalRegistrationIdentifierVerification
+                  configs:
+          methods:
+
+  # Interface
+  - identifier: TerminalRegistrationIdentifierVerification
+    kind: abstract
+    parameters:
+      attributes:
+        - name: Status
+          kind: TerminalRegistrationIdentifierVerificationStatus
+
+  - identifier: Session
+    documentation: |
+      A Session represents authorization for a time span. While Terminal
+      usually provide longer authorization period, a Session is used to
+      break down that authorization into smaller time spans.
+
+      If a Session is expired or revoked, the previously authorized
+      Application instance (Terminal) could request another Session as long the
+      Application's authorization is still valid. There's only one instance
+      of Session active at a time for a Terminal.
+
+      An access token represents a instance of Session.
+    kind: adjunct
+    parameters:
+      name_is_prepared: true
+      kind: entity
+      hosts:
+        - kind: Terminal
+          # only one instance of Session for a Terminal active at a time
+      cardinality:
+        min: 0
+        max: 1
+        # TODO: parent session
+      # this is a directive to expose a host of one of the hosts of this
+      # adjunct.
+      expose:
+        # This one, we expose the User host of the Terminal with the name User.
+        # TODO: name is optional. If it's not provided, we will construct
+        # the name by combining the names, so Terminal.User will be TerminalUser.
+        # If the name is provided, we will expose with the provided name.
+        - name: User
+          from: Terminal.User
+      parameters:
+        implements:
+          - kind: "_azsys.Session"
+        id:
+          num:
+            kind: integer
+            parameters:
+              total_bits: 32
+              identifier_bits: 24
+          ref_key:
+            azid_text:
+              prefix: "KSe0"
+        service:
+          enabled: true
+          description: |
+            Hello.
+        lifecycle:
+          deletion:
+          expiration:
+            duration:
+              overridable: true
+              value:
+                quantity: 1440
+                unit: hour
+
+  # TODO: concept of something, which is required to create an instance of
+  # an entity. One instance of this something can only be used for exactly one
+  # process.
+  # This something might or might not contain part which will be included as
+  # product entity's attributes.
+  # Idea for the term: substrate, material, artifact, mold, aid, assist,
+  # scaffold, proto.
+  # TODO: we could just use prebuilt functionality,
+  # e.g., PhoneNumberVerification, but we still need to declare something
+  # to bring in the functionality here.
+  - identifier: TerminalRegistrationPhoneNumber
+    documentation: |
+      TerminalRegistrationPhoneNumber is used to track terminal registrations
+      which each was requested by requesting a verification of a phone-number
+      associated to a user.
+    kind: entity
+    parameters:
+      implements:
+        - kind: TerminalRegistrationIdentifierVerification
+      # The idea is that this entity is built upon a component. We are
+      # encapsulating the component as an entity in this domain. A component
+      # deals only with the value it contained.
+      # TODO: same or similar concept to mixins? an entity can have only one
+      # component? is this similar to Go's struct embedding?
+      component:
+        name: PhoneNumberVerificationWithIntegerCode
+        parameters:
+          code_length: 6
+      substrate:
+        product:
+          kind: Terminal
+      id:
+        num:
+          kind: integer
+          parameters:
+            total_bits: 64
+            identifier_bits: 48
+      mixins:
+        - kind: Deletion
+          parameters:
+        - kind: Expiration
+          parameters:
+            duration:
+              overridability:
+                default: true
+              value:
+                quantity: 5
+                unit: minute
+      lifecycle:
+        # Creation is a special service method.
+        creation:
+          # Master flag. Only if the value is true, each of creation methods
+          # could set its own flag.
+          #
+          # By default, this flag is set to false.
+          #
+          # If the value is false, we won't allow any creation through
+          # other application, including the same kind of application on
+          # different process/machine; the creation can only be performed by other
+          # part of the same application. It means that the entity was
+          # designed as by-product of other entity's method, i.e., non-direct
+          # creation.
+          #
+          # If the value is true, we want to allow the creation to be initiated
+          # directly by other applications.
+          allow_cross_process_callers: true
+          # A flag to determine if applications from other realms is allowed
+          # to make call to this method.
+          #
+          # An application from other realms is an application which received
+          # authorization to integrate with this realm. In contrast to
+          # own-realm applications.
+          allow_cross_realm_callers: false
+          authorization:
+            - kind: Application
+              allow: on-condition
+              condition:
+                eq:
+                  a: $.id_num.UserAgent
+                  b: true
+          allowed_isolations:
+            - all
+          methods:
+            create:
+              allow_cross_process_callers: true
+              input_parameters:
+                Self.phone_number:
+      attributes:
+        - name: PhoneNumber
+          kind: telephony.PhoneNumber
+          final: true
+        - name: VerificationCode
+          kind: PhoneNumberVerificationCode
+          final: true
+      service:
+        # Instance methods
+        methods:
+          confirm:
+            # instance cardinality?
+            mutate: true
+            authorization:
+              - kind: oso
+                parameters:
+                  policy: 'allow(ctx: Context, "confirm", _resource: Self) if ctx.is_intraprocess'
+            input_parameters:
+              Self:
+              Self.verification_code:
+            output_parameters:
+              session: Session
+            process: |
+              self.confirm_verification(code):{
+                error(err) -> return err
+                ok(phone_number) -> KeyPhoneNumber.service.get_user_or_create(phone_number):{
+                  error(err) -> return err
+                  ok(uid) -> Terminal.create(self.application, uid):{
+                    error(err) -> return err
+                    ok(term) -> Session.create(term)
+                  }
+                }
+              }
+
+  #TODO: generator
+  - identifier: ApplicationAccessKeySecret
+    documentation: |
+      ApplicationAccessKeySecret encapsulates application access key secret.
+    kind: value_object
+    parameters:
+      kind: alias
+      parameters:
+        data_type: string
+
+  - identifier: PhoneNumberVerificationCode
+    documentation: |
+      PhoneNumberVerificationCode is the type for storing the code
+      of a phone-number verification.
+    kind: value_object
+    parameters:
+      kind: alias
+      parameters:
+        data_type: int16
