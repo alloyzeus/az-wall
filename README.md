@@ -47,6 +47,10 @@ TODO: elaborate
   correlate with others. Some individual pains could be addressed with
   a single solution.
 - Reality-check by reproducing existing, in-production systems.
+- Being transparent and open by generating codebase rather than fully
+  black-box systems. System owners could inspect the codebase of their
+  systems and they have the options to continue the development of those
+  systems manually.
 
 ## The Methodology
 
