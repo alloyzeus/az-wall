@@ -27,9 +27,11 @@ TODO: elaborate
 - Automate All The Things! Including the coding. Reduce the area with
   error potential by removing manual code writing.
 - Single source of truth for the whole system. The documentations
-  (including charts/visualizations), server applications, APIs/protocols,
-  data schema migrations, configuration schema, client applications/SDKs,
-  are all generated from a single source. No more lying documentations.
+  (including charts and visualizations), server applications,
+  APIs/protocols, data schema migrations, configuration schema, client
+  applications/SDKs, and even deployment and publishing directives, are
+  all generated from a single source. No more lying documentations, no
+  more duplicated efforts to update an endpoint.
 
 ## Working strategy
 
