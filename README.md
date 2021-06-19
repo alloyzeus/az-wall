@@ -53,6 +53,8 @@ TODO: elaborate
   black-box systems. System owners could inspect the codebase of their
   systems and they have the options to continue the development of those
   systems manually.
+- Break down everything, decompose everything. Construct new concepts
+  from those parts.
 
 ## The Methodology
 
