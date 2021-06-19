@@ -6,11 +6,12 @@ A wall (of ideas) for AlloyZeus
 **NOTE**: AlloyZeus is a codename for the project. It might or might not be
 retained as the name of the product.
 
-AlloyZeus is an attempt to build a methodology, modelling language (AZML), a
-set of tools, a standard library (stdlib) for AZML, and foundation libraries
-(packages) for supported target languages, that allows software developers,
-especially software architects, to model a service-oriented system, and then
-be able to generate the source code of that system, reactive and end-to-end.
+AlloyZeus is an attempt to build a methodology, a modelling language (AZML),
+a set of tools, a standard library (stdlib) for AZML, and foundation
+libraries (packages) for supported target languages, that allows software
+developers, especially software architects, to model a service-oriented
+system, and then be able to generate the source code of that system,
+reactive and end-to-end.
 
 Mind map: https://www.mindmeister.com/1593890042/alloyzeus-components
 
@@ -23,19 +24,22 @@ TODO: elaborate
 ## Goals
 
 - Faster iteration.
-- Reduce the area with error potential by removing manual code writting.
-- One source of truth for the whole system, from the design, servers,
-  APIs, data schema migrations, configurations, client applications.
+- Automate All The Things! Including the coding. Reduce the area with
+  error potential by removing manual code writing.
+- Single source of truth for the whole system. The documentations
+  (including charts/visualizations), server applications, APIs/protocols,
+  data schema migrations, configuration schema, client applications/SDKs,
+  are all generated from a single source. No more lying documentations.
 
 ## Working strategy
 
 - Use existing methodologies, concepts, technologies and their
   implementations as the starting point. Try to avoid introducing new
-  things.
-- When it's required to introduce a new concept, use the most relevant
-  real-world concept as the base. Sometimes, it's better to start of
-  with a completely new concept and then merge it with other concepts
-  later on than bending existing concepts.
+  things. Existing things are probably proven and familiar.
+- Sometimes, it's better to start of with a completely new concept and
+  then merge it with other concepts later on than bending existing
+  concepts. When it's required to introduce a new concept, use the most
+  relevant real-world concept as the base.
 - Observe the pain points from real-world practice and think the solution
   for those pains.
 
