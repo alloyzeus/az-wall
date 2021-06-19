@@ -34,14 +34,19 @@ TODO: elaborate
 ## Working strategy
 
 - Use existing methodologies, concepts, technologies and their
-  implementations as the starting point. Try to avoid introducing new
-  things. Existing things are probably proven and familiar.
+  implementations as the starting point. Try to avoid
+  developing/introducing new things. Find existing works that have matured.
+  They are usually battle-proven and a number people are already
+  familiar with them.
 - Sometimes, it's better to start of with a completely new concept and
   then merge it with other concepts later on than bending existing
   concepts. When it's required to introduce a new concept, use the most
   relevant real-world concept as the base.
 - Observe the pain points from real-world practice and think the solution
-  for those pains.
+  for those pains. Don't address them individually but attempt to
+  correlate with others. Some individual pains could be addressed with
+  a single solution.
+- Reality-check by reproducing existing, in-production systems.
 
 ## The Methodology
 
