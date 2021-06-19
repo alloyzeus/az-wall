@@ -20,6 +20,25 @@ Bridging the gap between system modelling and actual working systems.
 
 TODO: elaborate
 
+## Goals
+
+- Faster iteration.
+- Reduce the area with error potential by removing manual code writting.
+- One source of truth for the whole system, from the design, servers,
+  APIs, data schema migrations, configurations, client applications.
+
+## Working strategy
+
+- Use existing methodologies, concepts, technologies and their
+  implementations as the starting point. Try to avoid introducing new
+  things.
+- When it's required to introduce a new concept, use the most relevant
+  real-world concept as the base. Sometimes, it's better to start of
+  with a completely new concept and then merge it with other concepts
+  later on than bending existing concepts.
+- Observe the pain points from real-world practice and think the solution
+  for those pains.
+
 ## The Methodology
 
 Mind map: https://www.mindmeister.com/1898713101/alloyzeus-methodology
