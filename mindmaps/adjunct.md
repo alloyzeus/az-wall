@@ -109,10 +109,10 @@ E.g, `PUT /users/12345/display_name` means that we are setting the display name 
 
 #### Unset
 
+Related HTTP method: DELETE.
+
 ### Subscription
 
-
-Related HTTP method: DELETE.
 
 ## Association constraints
 
