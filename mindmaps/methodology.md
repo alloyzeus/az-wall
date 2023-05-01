@@ -16,7 +16,9 @@ An entity on its own does not have any attributes. To associate an value or obje
 
 An adjunct can be used to associate a value object to an entity. It can also be used to associate an entity with another entity, i.e., define the relationships between entities.
 
-Analogous to 'relationship' in ERD.
+Adjunct is a concept of associating object(s) with other object(s).
+
+If the one that being associated is an entity, it is analogous to 'relationship' in ERD.
 
 An adjunct is an object that purpose is to associate an object to one or a set of entity.  
   
