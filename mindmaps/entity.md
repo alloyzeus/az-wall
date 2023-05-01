@@ -10,7 +10,7 @@ identifiers.
 
 ### ID
 
-A representation of an identity.  
+An ID is the arbitrary identifier for an instance of entity. An instance of entity might have more than one identifying values other than an ID.  
   
 Always random for root entities, optionally order-able for adjunct-entities.  
   
@@ -53,9 +53,9 @@ Not to be confused with "soft-deletion."
 
 ## Ownership
 
-Ownership is a special kind of adjunct. It's an adjunct, generally between two instances of entity, that describes which owns which.
+Ownership is a specialized kind of adjunct. It's an adjunct, generally between two instances of entity, that describes which owns which.
 
-TODO: make a distinction between ownership and adjunction.
+We define ownership concept for better semantic.
 
 ### Constraints
 
@@ -63,9 +63,17 @@ Define the rules of operations related to change in ownership.
 
 What are the rules to transfer-in, what are the rules to transfer-out (disassociate).
 
+#### Owner type
+
+By default, User.
+
+NOTE: there are cases where we can transfer between personal and organization.
+
 #### Transferability
 
 Whether an ownable entity can be transferred.
+
+NOTE: some transfers require approval from both parties.
 
 #### Owner cardinality
 
@@ -148,15 +156,21 @@ Some types of entity will record the revision identifier for any updates to an i
 
 For every change to any of the attributes, a new revision identifier will be generated.
 
-## Implementations
+## Sub-classes
 
 ### Root entities
+
+A root entity 
+
+### Adjunct entities
 
 ## Special entities (abstracts)
 
 These entities are the fundamental entities in an AlloyZeus system.
 
 ### Application
+
+A root entity.
 
 An application defines a class of application.
 
@@ -170,12 +184,18 @@ An authenticated service application or authorization user-agent application is 
 
 ### User
 
+A root entity.
+
 User is something that have an agency, i.e., the only object that can do operations.
 
 ### Terminal
+
+An adjunct entity between Application and User. The User is depended on the type of the Application.
 
 A Terminal is an authorized instance of application. A Terminal is associated to a user if the application is a user agent. If the application is service application, there will be no User reference.  
   
 A Terminal is an adjunct of Application and User with User requirement depends on the Application's agency type.
 
 ### Session
+
+An adjunct entity of Terminal.

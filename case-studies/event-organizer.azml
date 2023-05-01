@@ -1,0 +1,56 @@
+domain eo
+
+entity Organizer {}
+
+entity Event {
+  ownership {
+    owner_type Organizer
+    transferability {
+
+    }
+  }
+
+  attributes {
+    DisplayName: thing.Name {
+      localized true
+    }
+    ShortDescription: thing.Description {
+      localized true
+      markdown disallow
+    }
+    Description: thing.Description {
+      localized true
+      markdown allow {
+        headers disallow
+        html disallow
+      }
+    }
+
+    # TODO: describe the process.
+    # A registration results in an applicant
+    Registration: Registration {
+
+    }
+
+    Applicants: set {}
+
+    Participants: set {
+      cardinality {
+        # TODO: set by organizer for each
+        # instance of Event
+      }
+    } of Participant {
+      attributes {
+        Approval
+        Payment
+        NameOnBIB
+      }
+    }
+  }
+}
+
+entity Payment {
+  attributes {
+    Status
+  }
+}

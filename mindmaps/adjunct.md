@@ -44,13 +44,13 @@ TODO: promote the ID of a kind of adjunct-entity to the root-level. for example,
 
 #### ID
 
-ID is the arbitrary identifier for the adjunct-entity.
+An ID is the arbitrary identifier for the adjunct-entity.
 
 Adjunct-entity has two parts of identifier: host-derived and own (scoped/local) identifier.  
   
 The own-identifier is used to differentiate between instances of the same kind under the same set of hosts. Two instances of the same kind might have the same own-identifier if they are under different hosts.  
   
-Unlike root entities, adjunct-entities can have non-random IDs based on their natural ordering.  
+Unlike root entities, adjunct-entities can have non-random IDs based on their natural ordering with an appropriate directive.  
   
 Using this scheme, we can make some optimizations, e.g., data sharding based on the hosts.  
   
@@ -66,6 +66,16 @@ Example: a job contract is an adjunct-entity between a company and a person, the
 
 ###### Scoped ID part
 
+##### Uniqueness
+
+There are two type of uniquness: host-scoped uniqueness and type-scoped uniqueness.
+
+A host-scoped uniquness means that the ID is unique within the same set of hosts.
+
+##### Ordering
+
+For host-scoped uniqueness, the ID can be set to be orderable.
+
 ### Adjunct-values
 
 
@@ -74,6 +84,8 @@ Example: a job contract is an adjunct-entity between a company and a person, the
 When an adjunct is defined for a host, the host service will provide operations related to the adjunct.
 
 CRUD. Easily translatable to HTTP methods: POST, PUT, DELETE.
+
+### Query
 
 ### Mutations
 
@@ -97,6 +109,9 @@ E.g, `PUT /users/12345/display_name` means that we are setting the display name 
 
 #### Unset
 
+### Subscription
+
+
 Related HTTP method: DELETE.
 
 ## Association constraints
@@ -110,6 +125,12 @@ Defines the limit of adjuncts can be created for the same set of host entities.
 Example: the number of Products in a Shop is limited to 1000 at maximum (0..1000).  
   
 TODO: there will two types of cardinality: host set and host-specific. In the first case, we'll limit the number of instances for every host combination. In the latter case, we will limit the number of adjunct instances based on the lowest limit among hosts and the global limit.
+
+#### Cardinality by traits
+
+An example case. A user can associate email addresses and phone numbers to their account. Because those identifiers are required for signing in, the system would prevent the user from deleting all of them. There must be one identifier, either a phone number or aemail address must be left.
+
+#### Custom cardinality rules
 
 
 ## Metadata
@@ -125,6 +146,8 @@ When was the adjunction was created.
 #### Creation actor
 
 Who created the adjunction.
+
+#### Creation operation ID
 
 
 ### Deletion
