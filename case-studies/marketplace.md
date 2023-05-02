@@ -154,10 +154,10 @@ entity Store {
 # in this case, it's entity User from the iam module.
 with iam.User {
 
-  attributes {
+  adjuncts {
     # A cart has one-to-one relationship with a user, and
     # it does not need to be referenceable.
-    Chart: value Cart {
+    Chart: value {
       attributes {
         Items: ordered set {
 

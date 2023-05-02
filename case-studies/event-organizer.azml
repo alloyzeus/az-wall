@@ -10,43 +10,102 @@ entity Event {
     }
   }
 
-  attributes {
+  # Some events are by invitation
+  # Some events are accessible through a link but not searchable
+  # Some 
+  access (
+    read {
+      # TODO: defined by instance
+    }
+  )
+
+  attribute (
+    # Here we are defining an adjunct
+    # of value object thing.Name which
+    # will be available as DisplayName
+    # as an attribute.
     DisplayName: thing.Name {
       localized true
+    } {
+      requires-query false
+      access allow all
     }
+
     ShortDescription: thing.Description {
       localized true
       markdown disallow
+    } {
+      requires-query false
+      access allow all
     }
+
     Description: thing.Description {
       localized true
       markdown allow {
         headers disallow
         html disallow
       }
+    } {
+      requires-query true
+      access allow all
     }
+
+    IconImage: media.Image {
+      aspect-ratio 1:1
+      overflow fit
+    }
+
+    CoverImage: media.Image {
+      aspect-ratio 4:1
+      overflow fit
+    }
+
+    Images: set {
+      cardinality 0..8
+    } of media.Image {
+
+    }
+
+    Visibility: 
 
     # TODO: describe the process.
     # A registration results in an applicant
-    Registration: Registration {
-
+    Registration: value {
+      attribute (
+        Options: value {
+          # TODO
+          Filters:
+        }
+      )
     }
+  )
 
-    Applicants: set {}
+  aggregate (
+    # Here we are projecting adjunct Participant
+    # as attribute Applicants in the aggregate.
+    Applicants: project Participant {
+      Approval == Pending
+    }
+  )
 
-    Participants: set {
+  adjunct (
+    value Participant {
       cardinality {
-        # TODO: set by organizer for each
-        # instance of Event
+        # TODO: configurable for each event
       }
-    } of Participant {
       attributes {
+        # TODO: depends on the category
+        # TODO: composition if configurable
+        # TODO: uniqueness scoped by host
+        BIBNumber: 
+
+        BIBName
+
         Approval
         Payment
-        NameOnBIB
       }
     }
-  }
+  )
 }
 
 entity Payment {

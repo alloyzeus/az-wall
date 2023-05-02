@@ -45,5 +45,36 @@ An aggregate doesn't have its own attributes. Every value accessible through an 
   
 Example: A CV describes a Person. It lists his work history (each work is an adjunct).
 
+Aggregates has only read port.
 
-## Attributes
+
+### Attributes
+
+
+## Ports
+
+### Types
+
+### Access control
+
+Every port could be guarded by access control policies. Information required by authorization checks are generally obtained from the contexts.
+
+#### Policies
+
+##### Expression language
+
+### Visibility
+
+Visibility is not access control. A port might be public but it might be possible that nobody could actually perform an operation through that port.
+
+#### Public
+
+API is accessible from other processes.
+
+#### Intra-process
+
+Across module, within an application process.
+
+#### Private
+
+Within the module/package.

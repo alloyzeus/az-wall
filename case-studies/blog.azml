@@ -1,0 +1,17 @@
+domain azbe
+
+import iam
+
+entity Blog {
+  attribute (
+    Title: thing.Name {
+      localization enabled
+    }
+  )
+
+  adjunct (
+    entity Post {
+      id {}
+    }
+  )
+}
