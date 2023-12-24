@@ -32,6 +32,10 @@ TODO: elaborate
   applications/SDKs, and even deployment and publishing directives, are
   all generated from a single source. No more lying documentations, no
   more duplicated efforts to update an endpoint.
+- Transparent and open by generating codebase rather than as a fully
+  black-box systems like other no-code / low-code solutions. System
+  owners could inspect the codebase of their systems and they have the
+  options to continue the development of those systems manually.
 
 ## Working strategy
 
@@ -49,10 +53,6 @@ TODO: elaborate
   correlate with others. Some individual pains could be addressed with
   a single solution.
 - Reality-check by reproducing existing, in-production systems.
-- Being transparent and open by generating codebase rather than fully
-  black-box systems. System owners could inspect the codebase of their
-  systems and they have the options to continue the development of those
-  systems manually.
 - Break down everything, decompose everything. Construct new concepts
   from those parts.
 
@@ -65,10 +65,7 @@ Mind map: https://www.mindmeister.com/1898713101/alloyzeus-methodology
 While in general purpose languages we are talking about classes or structs,
 in AZML we talk about entities, adjuncts, value objects, and services.
 
-A quick and dirty peek into the language (to give an idea of the parsed
-structure: [iam.yaml](https://github.com/alloyzeus/az-wall/blob/master/case-studies/iam.yaml),
-and the untouched generated Go code from the YAML file:
-[user__azgen.go](https://github.com/kadisoka/kadisoka-framework/blob/562fadec0bc1a7f694959fcfea82043427881796/iam/pkg/iam/user__azgen.go)) :
+A quick and dirty peek into the language:
 
 ```
 domain iam
@@ -175,6 +172,12 @@ entity User {
 }
 
 ```
+
+We have not implemented a parser for such language. Meanwhile, we start
+from the parsed structures:
+[iam.yaml](https://github.com/alloyzeus/az-wall/blob/master/case-studies/iam.yaml).
+For the untouched generated Go code from the YAML file:
+[user__azgen.go](https://github.com/kadisoka/kadisoka-framework/blob/562fadec0bc1a7f694959fcfea82043427881796/iam/pkg/iam/user__azgen.go)) 
 
 ## Related works, concepts and references
 
