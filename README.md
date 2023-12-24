@@ -62,6 +62,9 @@ Mind map: https://www.mindmeister.com/1898713101/alloyzeus-methodology
 
 ## AZML - AlloyZeus Modelling Language
 
+While in general purpose languages we are talking about classes or structs,
+in AZML we talk about entities, adjuncts, value objects, and services.
+
 A quick and dirty peek into the language (to give an idea of the parsed
 structure: [iam.yaml](https://github.com/alloyzeus/az-wall/blob/master/case-studies/iam.yaml),
 and the untouched generated Go code from the YAML file:
